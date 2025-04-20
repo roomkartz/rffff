@@ -6,24 +6,26 @@ import userRoutes from "./routes/userRoutes.js";
 connectDB();
 
 const app = express();
-app.use(express.json({ limit: "10mb" })); // Increase JSON payload size
-app.use(express.urlencoded({ extended: true, limit: "10mb" })); // Increase URL-encoded payload size
 
-// Configure CORS
+// Configure CORS - FIRST middleware
 const corsOptions = {
-  origin: ["http://localhost:5175", "https://www.roomkartz.com/"], // Allow specific origins
-  methods: "GET,POST,PUT,DELETE,PATCH", // Allow specific HTTP methods
-  credentials: true, // Allow cookies (if needed)
+  origin: [
+    "http://localhost:5175", 
+    "https://www.roomkartz.com",
+    "https://roomkartz.com" // Add non-www version if needed
+  ],
+  methods: "GET,POST,PUT,DELETE,PATCH",
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
-app.use(express.json());
-app.use("/uploads", express.static("uploads")); // Serve static files from uploads folder
+// Other middleware
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+app.use("/uploads", express.static("uploads"));
 
 // Routes
 app.use("/api/users", userRoutes);
 
-console.log("API routes are registered");
-
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
