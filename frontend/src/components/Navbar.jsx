@@ -100,7 +100,7 @@ const Navbar = () => {
             className="flex items-center flex-shrink-0 text-white hover:text-[#FFD700] transition-colors duration-300 ease-in-out"
           >
             <span className="text-2xl font-bold">
-              Room<span className="text-[#FFD700]">Kartz.com</span>
+              RoomKartz<span className="text-[#FFD700]">.com</span>
             </span>
           </Link>
 
